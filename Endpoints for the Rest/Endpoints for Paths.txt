@@ -1,0 +1,53 @@
+@Component
+@Path("/Paths")
+public class PathsResource{
+    @Autowired
+    private PathsResource pathsService;
+}
+
+@Post
+@Consumes
+@Produces
+public Response createPaths(Paths path) throws AppExecption{
+    //insert the new path to the database from a form
+}
+
+
+//Show the classes that the students will take
+@GET
+@Produces
+@Path("{Sid}")
+public List<Paths> getPAthsSid(@PathParam("Sid") Integer sid){
+    @QueryParam ("orderBySid")
+    /Paths/Sid ->the output uri
+}
+
+
+
+//show the students that are taking that class -given term
+@GET
+@Produces
+@Path("{Cid}")
+public List<Paths> getPAthsCid(@PathParam("Cid") Integer cid){
+    @QueryParam ("orderByCid")
+    /Paths/Cid ->the output uri
+}
+
+@Put
+@Path("{Cid}")
+@Consumes
+@Produces
+public Response putPathByCid(@PathParam("Cid") Integer cid){
+    //get new Cid that student changed in their map and put new one
+    /Paths/Sid/Cid
+}
+
+
+
+@Delete
+@Path("{Cid}")
+@Produces
+public Response deleteCid(@PathParam("Cid") Integer cid){
+    /Paths/Sid/Cid
+    //remove the class that the student does not want to take from map.
+}

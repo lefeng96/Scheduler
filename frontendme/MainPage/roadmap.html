@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.9/angular-sanitize.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Main Page</title>
+
+ <!-- Our Custom CSS -->
+  <link rel="stylesheet" href="style5.css">
+  <link rel="stylesheet" href="mainSidebar.css">
+  <link rel="stylesheet" href="roadmap.css">
+</head>
+
+<body>
+<div id="loader"></div>
+  <div class="wrapper" ng-controller="sideCtrl" ng-cloak>
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+      <div>
+        <img src="https://www.cui.edu/Portals/0/Images/Icons/schedule-icon-2.png" alt="Profile Picture" id="profile" />
+      </div>
+
+      <ul>
+        <p id="student-info" ng-repeat="x in students">{{ x.fname + " " + x.lname }}</p>
+        <li class="active">
+          <a id='home-btn' href="MainPage.html">Home</a>
+        </li>
+        <li>
+          <a href="roadmap.html">Roadmap</a>
+        </li>
+        <li>
+          <a href="Grades.html">Setting/Grades</a>
+        </li>
+        <li>
+          <a href="javascript:logout()" id='logout'>Logout</a>
+        </li>
+      </ul>
+    </nav>
+    <script type="text/javascript">
+      function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function logout() {
+        setCookie("cin", 0, 30);
+        setCookie("password", 0, 30);
+        location.href = "../Registration/index.html";
+      }
+    </script>
+
+    <!-- Page Content Holder -->
+    <div>
+      <nav>
+        <div>
+          <div>
+            <button type="button" id="sidebarCollapse" class="navbar-btn">
+				<span></span>
+				<span></span>
+				<span></span>
+            </button>
+          </div>    
+        </div>
+      </nav>
+    </div>
+
+      <!-- semester tables -->
+    <div id="wrap" class="panel-group" class="container" class="schedule" ng-controller="readjson" ng-cloak>
+		
+	
+		<select id = "changemode" onchange = "changemode()">
+			<option value = "1">Show all years</option>
+			<option value = "2">Show one year</option>
+		</select>
+		<button id='random-btn' ng-click='anotherroadmap()'>Give a random new roadmap</button>
+		
+	</div>
+
+	<!-- class sidebar -->
+	<div id="sidebar-container" class="classSidebar" ng-controller="classCtrl">
+		<button type="button" id="toggle-btn" onclick="toggleSidebar(),edit();" class="btn-primary">Edit Roadmap</button>
+
+		<div id="class-sidebar">
+			<ul id="ul" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<li>Please select a semester</li>
+			</ul>
+		</div>
+	</div>
+
+    <script src="sidebar.js"></script>
+	<script src="cookies.js"></script>
+	<script src="roadmap.js"></script>
+
+</body>
+
+</html>

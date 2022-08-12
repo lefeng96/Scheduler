@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .accordion {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 50%;
+      border: none;
+      text-align: center;
+      outline: none;
+      font-size: 15px;
+      transition: 0.4s;
+    }
+
+    .lmao {
+      text-align: center;
+    }
+
+    .active,
+    .accordion:hover {
+      background-color: #ccc;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .panel {
+      padding: 0 18px;
+      display: none;
+      background-color: white;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="table">
+    <h1>Spring 2018</h1>
+    <div class="lmao">
+      <button class="accordion">Class 1</button>
+      <div class="panel">
+        <h3>Class code</h3>
+        <p>Class name</p>
+        <p>units</p>
+        <p>description</p>
+      </div>
+
+      <button class="accordion">Class 2</button>
+      <div class="panel">
+        <h3>Class code</h3>
+        <p>Class name</p>
+        <p>units</p>
+        <p>description</p>
+      </div>
+
+      <button class="accordion">Class 3</button>
+      <div class="panel">
+        <h3>Class code</h3>
+        <p>Class name</p>
+        <p>units</p>
+        <p>description</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>

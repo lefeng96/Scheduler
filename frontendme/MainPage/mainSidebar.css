@@ -1,0 +1,134 @@
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+.wrapper
+{
+    display: flex;
+    align-items: stretch;
+
+    perspective: 1500px;
+}
+
+#sidebar
+{
+    min-width: 250px;
+    max-width: 250px;
+
+    transition: all .6s cubic-bezier(.945, .020, .270, .665);
+    transform-origin: bottom left;
+
+    color: #000;
+}
+
+#sidebar.active
+{
+    margin-left: -250px;
+
+    transform: rotateY(100deg);
+}
+
+#sidebar ul
+{
+    padding: 0;
+}
+
+#sidebar ul p
+{
+    padding: 10px;
+}
+
+#sidebar ul li a
+{
+    font-size: 1.1em;
+
+    display: block;
+
+    padding: 5px 5px 5px 10px;
+}
+#sidebar ul li a:hover
+{
+    color: #fff;
+    background: #3c3c3c;
+}
+
+ul ul a
+{
+    font-size: .9em !important;
+
+    padding-left: 30px !important;
+}
+
+a.article,
+a.article:hover
+{
+    color: #fff !important;
+    background: #6d7fcc !important;
+}
+
+#student-info
+{
+    color: #af473c;
+}
+
+.navbar-btn
+{
+    border: none;
+    outline: none !important;
+    box-shadow: none;
+}
+
+/* ---------------------------------------------------
+    CONTENT/SIDEBAR BUTTON STYLE
+----------------------------------------------------- */
+#content
+{
+    min-height: 100vh;
+    padding: 15px;
+
+    transition: all .3s;
+}
+
+#sidebarCollapse
+{
+    width: 35px;
+    height: 35px;
+
+    background: #f5f5f5;
+}
+
+#sidebarCollapse span
+{
+    display: block;
+
+    width: 80%;
+    height: 2px;
+    margin: 0 auto;
+
+    transition: all .8s cubic-bezier(.810, -.330, .345, 1.375);
+    transition-delay: .2s;
+
+    background: #555;
+}
+
+#sidebarCollapse span:first-of-type
+{
+    transform: rotate(45deg) translate(2px, 2px);
+}
+#sidebarCollapse span:nth-of-type(2)
+{
+    opacity: 0;
+}
+#sidebarCollapse span:last-of-type
+{
+    transform: rotate(-45deg) translate(1px, -1px);
+}
+
+#sidebarCollapse.active span
+{
+    margin: 5px auto;
+
+    transform: none;
+
+    opacity: 1;
+}

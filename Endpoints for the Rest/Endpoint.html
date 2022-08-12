@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Endpoint Information</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="endpoint.css" />
+    </head>
+
+    <body>
+        <h1 class="endpoint">Students</h1>
+        <div class="info">
+            <h2>GET</h2>
+            <h3>Url For API<lable >/Students</lable></h3>
+            <p>This will retrieve all Student information. This will retrive the student's first name, last name, and cin.</p>
+            <br>
+            <h3>Url For API<lable>/Students/fname/{fname}</lable></h3>
+            <p>This will retrive all students with the first of the value of {fname}.</p>
+            <br>
+            <h3>Url For API<lable >/Students/lname/{lname}</lable></h3>
+            <p>Will retrieve all students by the last name from the value {lname}.</p>
+            <br>
+            <h3>Url For API<lable >/Students/cin/{cin}</lable></h3>
+            <p>Retrieves students by the cin and since cin is unique it will only retrieve one student.</p>
+            <br>
+            <h2>DELETE</h2>
+            <h3>Url For API<lable >/Students/delete/{cin}</lable></h3>
+            <p>This will delete the student by the cin.</p>
+            <br>
+            <h2>POST</h2>
+            <h3>Url For API<lable>/Students/insert/{fname}/{lname}/{cin}/{email}/{password}</lable></h3>
+            <p>This will add the student with the parameters of {fname} for first name, {lname} for last name, and {cin} for cin.</p>
+            <p>Added email and password, as for first login and admin they are default to true and false respectively.Since they are new users creating accounts they are first time login</p>
+            <br>
+            <h3>Url For API<lable>/Admin/{cin}/{first}/{last}</lable></h3>
+            <p>This endpoint will add a new Admin to the database. Only users that have admin priveleges are able to create new admins.</p>
+            <br>
+            <h2>PUT</h2>
+            <h3>Url For API<lable >/Students/edit/{fname}/{lname}/{cin}</lable></h3>
+            <p>This will update any information for the student since you can't change the cin of the student this will update the first name/last name.</p>
+            <br>
+        </div>
+        <h1 class="endpoint">Classes</h1>
+        <div class="info">
+            <h2>GET</h2>
+            <h3>Url For API<lable >/Classes</lable></h3>
+            <p>Retrives all classes. With the information of subject, classCode (ie. MATH 1200, CS 1010, or PHYS 2100), class name, number of units, if it has any prerequisite, if it has any corequisites, and the description of what the class is.</p>
+            <br>
+            <h3>Url For API<lable >/Classes/{subject}</lable></h3>
+            <p>Filter classes by Subject.</p>
+            <br>
+            <h3>Url For API<lable >/Classes/classCode/{classCode}</lable></h3>
+            <p>Gets the class with that class code and since the class code is unique this will get only one class.</p>
+            <br>
+            <h3>Url For API<lable >/Classes/className/{className}</lable></h3>
+            <p>This will retrieve the class/classes with that given {className}</p>
+            <br>
+            <h3>Url For API<lable >/Classes/classUnit/{unit}</lable></h3>
+            <p>Get all classes that with that given amount of unit(s). Will mostly be used to help student get classes of a given unit to fufill full student.</p>
+            <br>
+            <h2>PUT</h2>
+            <h3>Url For API<lable >/Classes/{subject}/{classCode}/{className}/{unit}/{description}</lable></h3>
+            <p>This will update the class information and since class Code is unique this is change anything else from className, number of units, prerequisite, corequisite, or the description of the class.</p>
+            <br>
+            <h2>POST</h2>
+            <h3>Url For API<lable >/Classes/{subject}/{classCode}/{className}/{unit}/{description}</lable></h3>
+            <p>This will add a class to the class scheduale witht the given information.</p>
+            <br>
+            <h2>DELETE</h2>
+            <h3>Url For API<lable >/Classes/{classCode}</lable></h3>
+            <p>This will delete the class with the given {classCode}. Since class Code is unique no other information is needed to delete the class.</p>
+            <br>
+        </div>
+
+        <h1 class="endpoint">Paths</h1>
+        <div class="info">
+            <h2>GET</h2>
+            <h3>Url For API<lable >/Paths</lable></h3>
+            <p>Get all the paths that are in the database regardless of student info or what classes they taking or the year they are taking it in.</p>
+            <br>
+            <h3>Url For API<lable >/Paths/{cin}</lable></h3>
+            <p>This will retrieve the paths for a specific student with the cin value for {cin}.</p>
+            <br>
+            <h3>Url For API<lable >/Paths/Students/{ClassCode}</lable></h3>
+            <p>Get all the students that are taking that class with the specific {classCode}. Will get all regardless of year taken or who took it.</p>
+            <br>
+            <h3>Url For API<lable >/Paths/Semester/{semester}/{year}</lable></h3>
+            <p>This will get all the paths for that given Semester (ie. Summer, Spring, Fall, or Winter) and year (year is in 2 digits of the year, ie.2018 will have 18 only).</p>
+            <p>This will now return in the json semester and year as seperate values</p>
+            <p>*This endpoint was changed as of February 27, 2018</p>
+            <br>
+            <h3>Url For API<lable >/Paths/{cin}/{semester}/{year}</lable></h3>
+            <p>Get the classes for the specific student with value {cin} and the classes they are taking for that specific semester and year.</p>
+            <p>This will return now in the json semester and year as seperate values</p>
+            <p>*This endpoint was changed as of February 27, 2018</p>
+            <br>
+            <h3>Url For API<lable >/Paths/taken/{cin}</lable></h3>
+            <p>This returns a list of courses that have been taken by the student. These are courses that the student has received a grade for. This list will be used by the algorithm to determine the roadmap.</p>
+            <br>
+            <h3>Url For API<lable >/Paths/notTaken/{cin}</lable></h3>
+            <p>This returns a list of courses that the student has not taken or has not received a grade for..</p>
+            <br>
+            <h3>Url For API<lable >/Paths/{cin}/{semester}/{year}</lable></h3>
+            <p>This returns the list of courses that the student is taking at a specific semester and year. This is used in the roadmap to show individual semesters.</p>
+            <br>
+            <h2>POST</h2>
+            <h3>Url For API<lable >/Paths/{cin}/{classCode}/{semester}/{year}</lable></h3>
+            <p>This will create a new path for the student with the class they are taking and what semester they will take it in.</p>
+            <br>
+            <h3>Url For API<lable >/Paths/{sid}/{classCode}/{semester}/{year}/{grade}</lable></h3>
+            <p>This will insert a new path for the student if they have taken the class before. Same as the above request only with {grade} as the new entry. This will be used for the new student or students that start the app that have taken any classes before.</p>
+            <br>
+            <h2>DELETE</h2>
+            <h3>Url For API<lable >/Paths/{cin}/{classCode}/{semester}/{year}</lable></h3>
+            <p>This will delete the path of the student if they do not want to take the class for that semester and year.</p>
+            <br>
+            <h2>PUT</h2>
+            <h3>Url For API<lable >/Paths/{sid}/{classCode}/{semester}/{year}/{grade}</lable></h3>
+            <p>This one will be for update. So after the semester is over the student will enter a grade they got for that class.</p>
+        </div>
+
+        <h1 class="endpoint">Corequisites</h1>
+        <div class="info">
+            <h2>GET</h2>
+            <h3>Url For API<lable >/Coreq</lable></h3>
+            <p>Get all classes with a corequisite.</p>
+            <br>
+            <h3>Url For API<lable >/Coreq/{course}</lable></h3>
+            <p>Get the corequisites for a specific class.</p>
+            <br>
+            <h2>POST</h2>
+            <h3>Url For API<lable >/Coreq/{course}/{corequisite}</lable></h3>
+            <p>Insert a new corequisite for a specific course.</p>
+            <br>
+            <h2>Delete</h2>
+            <h3>Url For API<lable >/Coreq/{course}/{corequisite}</lable></h3>
+            <p>Delete the corequisite for that class.</p>
+            <br>
+        </div>
+
+        <h1 class="endpoint">Prerequisites</h1>
+        <div class="info">
+            <h2>GET</h2>
+            <h3>Url For API<lable >/Pre</lable></h3>
+            <p>Get all classes with a prerequisite. For some reason Pre works but if it was Prereq or Prerequisite it would not work.</p>
+            <br>
+            <h3>Url For API<lable >/Pre/{course}</lable></h3>
+            <p>Get the prerequisites for a specific class.</p>
+            <br>
+            <h2>POST</h2>
+            <h3>Url For API<lable >/Pre/{course}/{prerequisite}</lable></h3>
+            <p>Insert a new prerequisite for a specific course.</p>
+            <br>
+            <h2>Delete</h2>
+            <h3>Url For API<lable >/Prerequisite/{course}/{prerequisite}</lable></h3>
+            <p>Delete the prerequisite for that class. This is the exception, this one does work with the full name.</p>
+            <br>
+        </div>
+
+        <h1 class="endpoint">Login</h1>
+        <div class="info">
+            <h2>GET</h2>
+            <h3>Url For API<lable >/Login/{cin}/{password}</lable></h3>
+            <p>This is used for validation purposes. </p>
+            <br>
+            <h2>UPDATE</h2>
+            <h3>Url For API<lable >/Login/{cin}/{password}</lable></h3>
+            <p>This is used to update the students password . </p>
+            <br>
+            <h2>POST</h2>
+            <h3>Url For API<lable >/Login/{cin}/{email}/{password}</lable></h3>
+            <p>This is to register new students into the database.</p>
+            <br>
+        </div>
+        <h1 class="endpoint">Algorithm</h1>
+        <div class="info">
+            <h2>GET</h2>
+            <h3>Url For API<lable >/Algorithm/{cin}</lable></h3>
+            <p>This calls the Algorithms methods to produce a roadmap. This also uses the classes/taken 
+                methods to retrive a list to accurately display a correct roadmap with any classes taken not showing up.</p>
+            <br>
+            <h3>Url For API<lable >/Algorithm/{cin}/{semester}/{year}/{classCode}</lable></h3>
+            <p>The frontend uses this when the user edits the roadmap by inserting a class into the roadmap. This endpoint sends the class to the 
+                algorithm and makes any changes to make that course into the semester and year they user wanted.
+                same as previous endpoint- it uses the classes/taken method to see the previous classes taken.
+                Returns a roadmap with previous classes taken not showing and the class they edited into the roadmap into the place they wanted.
+            </p>
+            <br>
+            <h3>Url For API<lable >/Algorithm/consume/{cin}</lable></h3>
+            <p>This is used for testing purposes to see if the endpoint can properly consume and produce a JSON object.
+                We could not get it working even with the syntax being corrent in the API and in the frontend.
+            </p>
+            <br>
+            <h2>POST</h2>
+            <h3>Url For API<lable >/Algorithm/{cin}/classinfo</lable></h3>
+            <p>This endpoint is incomplete. This was suppose to consume an incoming JSON object and parse to the appropriate object.
+                In this case it was a roadmap object. The object was going to be used to bulk save the roadmap into the database. 
+                This was to reduce time instead of making opening and closing connections for each course.</p>
+            <br>
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html ng-app="adminPage">
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.9/angular-sanitize.min.js"></script>
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="popuo-box.css">
+	<title>Admin Page</title>
+	<!-- Our Custom CSS -->
+	<link rel="stylesheet" href="style5.css">
+	<link rel="stylesheet" href="mainSidebar.css">
+	<link rel="stylesheet" href="adminPage.css">
+	<link rel="stylesheet" href="roadmap.css">
+</head>
+
+<body>
+	<div class="wrapper">
+		<!-- Sidebar Holder -->
+		<nav id="sidebar">
+			<div>
+				<img src="https://www.cui.edu/Portals/0/Images/Icons/schedule-icon-2.png" alt="Profile Picture" id="profile" />
+			</div>
+			<ul>
+				<p id="student-info">Admin</p>
+				<li class="active">
+					<a id='home-btn'>Home</a>
+				</li>
+				<li>
+					<a id='modify-btn'>Add/Edit Class(es)</a>
+				</li>
+				<li>
+					<a id='delete-btn'>Delete Class(es)</a>
+				</li>
+				<li>
+					<a id='search-btn'>Search Student</a>
+				</li>
+				<li>
+					<a href="javascript:logout()" id='logout'>Logout</a>
+				</li>
+				<script type="text/javascript">
+					function logout() {
+						setCookie("cin", 0, 30);
+						setCookie("password", 0, 30);
+						location.href = "../Registration/index.html";
+					  }
+					</script>
+                </ul>
+            </nav>
+
+            <div>
+                <nav>
+                    <div>
+                        <div>
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div>
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+        </div>
+
+		<div id='home-field' class="workingField" ng-init="loadClass()">
+			<h2>Welcome Admin </h2>
+			<p>Navigate the page by using the buttons on the left sidebar </p>
+			<hr />
+			
+			<p>In "Add/Edit Class(es)", you can insert new classes into the database and modify existing classes.</p>
+			<p>In "Delete Class(es)", you can delete one or multiplie classes from the database.</p>
+			<p>In "Search Student", .you can look up students via their CIN to advise them through their roadmaps.</p>
+		</div>
+		
+		<div id='modify-field' style="display:none" class="workingField" ng-controller="modifyClass" ng-init="loadClass()">
+			<h3>Add or Edit Class(es) : </h3>
+	
+			<form>
+				<!-- subject, class code, class name, units, prereq, coreq, description	-->
+			
+				<br />
+				<label for='classCSV'>Upload CSV file:</label>
+				<input id='classCSV' type="file" file-reader="fileContent" />
+				<div>{{fileContent}}</div>
+				<div id='edit-div'>
+					<label for='select-edit'>Edit Class:</label>
+					<select id='select-edit' ng-change='selectClass()' ng-model='editCourse'>
+						<option value='0'>Choose a class to edit</option>
+						<option  ng-repeat = 'c in classList' value='{{c.classCode}}'>{{c.classCode}} {{c.className}}</option>
+					</select>
+					<br /> <br />
+				</div>
+				<fieldset>
+					<legend>Enter Class Information: </legend>
+					<label for='select-subject'>Subject:</label>
+					<select class='form-inputs' id='select-subject' ng-model="subject">
+						<option value='Computer Science'>Computer Science</option>
+						<option value='Physics'>Physics</option>
+						<option value='Math'>Math</option>
+						<option value='Electrical Engineering'>Electrical Engineering</option>
+					</select>
+					<br/>
+					<label for='class-number' >Class Number:</label>
+					<input class='form-inputs' type='text' id='class-number'   ng-model='classNum'/>
+					<br />
+					<label for='class-name'>Class Name:</label>
+					<input class='form-inputs' type='text' id='class-name' ng-model='className' />
+					<br />
+					<label for='class-units'>Number of Units:</label>
+					<input class='form-inputs' type='number' id='class-units' min='1' value='1'  ng-model='classUnits' />
+					<br />
+					<label for='description'>Description of Class:</label>
+					<textarea class='form-inputs' id='description'  ng-model='description'></textarea>
+				</fieldset>
+				<br />
+				<fieldset>
+					<legend>Enter Class Constraint: </legend>
+					<label for='prerequisite' >Prerequisites:</label> <br />
+					<select id='prerequisite' ng-init='loadPrereq()'>
+						<option value='0'>None</option>
+						<option  ng-repeat = "p in prereq | unique: 'prerequisite' " value='{{p.prerequisite}}'>{{p.prerequisite}}</option>
+					</select>		
+					<button id='addPrereq'> + </button>
+					<br />
+					<label for='corequisite'>Co-requisites:</label> <br />
+					<select id='corequisite' ng-init='loadCoreq()'>
+						<option value='0'>None</option>
+						<option  ng-repeat = "c in coreq | unique: 'corequisite' " value='{{c.corequisite}}'>{{c.corequisite}}</option>
+					</select>	
+					<button id='addCoreq'> + </button>
+					
+				</fieldset>
+				<br />
+				<button id='add-btn' ng-click='addClass()'>Add Class</button>
+				<button id='edit-btn' ng-click='editClass()'>Edit Class</button>
+				<button id='clear-btn'>Clear Form</button > 
+			</form>
+		</div>
+		
+		<div id='delete-field' style="display:none" class="workingField" ng-controller = "deleteClass" ng-init="getClass()">
+			<form>
+				<h3>Select the class(es) to delete</h3>
+				<p id='class-list'></p>
+					
+				<ul>
+					<button class="accordion">1000 - 1999</button>
+					<div class="panel">
+						<li  ng-repeat="c1 in classList1">
+							<button class="btn" ng-click="delClass(c1.classCode)"><i class="fa fa-close"></i></button>
+							<label for='{{c1.classCode}}'> {{c1.classCode}} {{c1.className}} </label>
+						</li>
+					</div>	
+					
+					<button class="accordion">2000 - 2999</button>
+					<div class="panel">
+						<li ng-repeat="c2 in classList2">
+							<button class="btn" ng-click="delClass(c2.classCode)"><i class="fa fa-close"></i></button>
+							<label for='{{c2.classCode}}'> {{c2.classCode}} {{c2.className}} </label>
+						</li>
+					</div>
+					
+					<button class="accordion">3000 - 3999</button>
+					<div class="panel">
+						<li ng-repeat="c3 in classList3">
+							<button class="btn" ng-click="delClass(c3.classCode)"><i class="fa fa-close"></i></button>
+							<label for='{{c3.classCode}}'> {{c3.classCode}} {{c3.className}} </label>
+						</li>
+					</div>
+					
+					<button class="accordion">4000+ and GEs</button>
+					<div class="panel">
+						<li ng-repeat="c4 in classList4">
+							<button class="btn" ng-click="delClass(c4.classCode)"><i class="fa fa-close"></i></button>
+							<label for='{{c4.classCode}}'> {{c4.classCode}} {{c4.className}} </label>
+						</li>
+					</div>
+				</ul>				
+			</form>
+		</div>
+		
+		<div id='search-field' style="display:none" class="workingField" ng-controller = "cinSearch">	
+						<div id="test-popup" class="white-popup mfp-hide">
+							<div id="wrap" class="panel-group" class="container" class="schedule">
+									<select id = "changemode" onchange = "changemode()">
+										<option value = "1">Show all years</option>
+										<option value = "2">Show one year</option>
+									</select>
+									<button id='random-btn' ng-click='anotherroadmap()'>Give a random new roadmap</button>
+									
+								</div>
+
+								<!-- class sidebar -->
+								<div id="sidebar-container" class="classSidebar">
+									<button type="button" id="toggle-btn" onclick="toggleSidebar(),edit();" class="btn-primary">Edit Roadmap</button>
+
+									<div id="class-sidebar">
+										<ul id="ul" ondrop="drop(event)" ondragover="allowDrop(event)">
+											<li>Please select a semester</li>
+										</ul>
+									</div>
+								</div>
+						</div>
+			<h3>Search student to access their roadmap: </h3>
+			<label for='cinInput'>Student's CIN:</label>
+			<input type="search" id="cinInput" onkeyup="searchCIN()" placeholder='Type in student CIN' />
+		
+			<br />
+			
+			<div id='studentList'>
+				<ul id='students'>
+					<li  ng-repeat='student in studentList' ng-cloak>
+						<a href="#test-popup"  class="btn open-popup-link" ng-click="showInfoSidebar(student.cin)">{{student.cin}}  {{student.fname + ' ' + student.lname}}</a>
+					</li>	
+				</ul>
+			</div>
+				
+			<nav id='studentInfoBar' style="display: none;">
+				<ul>			
+					<div ng-repeat='s in studentInfo'>
+						<li>{{s.fname}} {{s.lname}}</li>
+					</div>
+					
+					<hr />
+					
+					<li>
+						<a href="#test-popup" class="btn open-popup-link">Show roadmap</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<script type='text/javascript' src='jquery.magnific-popup.js'></script>	
+		<script type='text/javascript' src='cookies.js'></script>
+		<script type='text/javascript' src='sidebar.js'></script>
+		<script type='text/javascript' src='adminPage.js'></script>
+		<script type='text/javascript' src='modifyClass.js'></script>
+		<script type='text/javascript' src='deleteClass.js'></script>
+		<script type='text/javascript' src='cinSearch.js'></script>	
+		<script src="adminRoadmap.js"></script>
+</body>
+
+</html>

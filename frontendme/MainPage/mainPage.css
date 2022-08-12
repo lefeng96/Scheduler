@@ -1,0 +1,74 @@
+#semInfo
+{
+    min-width: 1050px;
+	max-width: 1050px;
+}
+
+#semInfo h3
+{
+    margin: 5px;
+}
+
+#semInfo button
+{
+    position: relative;
+    left: 10%;
+    width: 26%;
+    margin: 2px;
+}
+
+.no-hover {
+	cursor: default;
+}
+
+no-hover:hover {
+	background-color: black;
+}
+
+.classContainer
+{
+    position: relative;
+    left: 5%;
+
+    width: 90%;
+}
+
+.classContainer .panel-title
+{
+    margin: 0;
+    padding: 5px;
+}
+
+.classContainer .panel-heading:hover
+{
+    color: #dad9e2;
+    background-color: #7c7a7f;
+}
+
+
+.classContainer a.anchor
+{
+    position: relative;
+    top: -250px;
+
+    display: block;
+    visibility: hidden;
+}
+
+.classContainer .courseInfo
+{
+    margin: 6px;
+    padding: 3px;
+}
+
+.classContainer .courseInfo hr
+{
+    width: 90%;
+}
+
+.classContainer .courseInfo .panel-body
+{
+    margin: 4px;
+
+    text-align: center;
+}

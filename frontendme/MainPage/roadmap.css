@@ -1,0 +1,256 @@
+th,
+td
+{
+    margin: 0;
+    padding: 5px 10px;
+
+    border-collapse: collapse;
+
+    text-align: center;
+
+    outline: 1px solid #e5e5e5;
+  border-radius: 5px;
+  
+}
+
+th:hover,
+td:hover
+{
+    cursor: pointer;
+
+    color: white;
+    background: #666;
+}
+
+table
+{
+    position: relative;
+    top: 50%;
+    bottom: 50%;
+	left: 8%;
+    width: 80%;
+    margin: 2%;
+
+    background-color: white;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.schedule
+{
+    position: relative;
+    top: 50%;
+    bottom: 50%;
+    left: 90%;
+}
+
+#previous,
+#next
+{
+    position: relative;
+}
+
+#sidebar-container
+{
+    position: relative; 
+	width: 10%;
+}
+
+#class-sidebar
+{
+    position: fixed;
+    right: -200px;
+
+    width: 200px;
+    height: 100%;
+
+    transition: all 300ms linear;
+
+    background: #151719;
+}
+
+#class-sidebar.active
+{
+    right: 0;
+}
+
+#ul {
+  padding: 15px;
+}
+
+#class-sidebar ul li
+{
+    padding: 10px 5px;
+
+    list-style: none;
+
+    color: rgba(230,230,230,.9);
+    border-bottom: 1px solid rgba(100,100,100,.3);
+}
+
+#class-sidebar ul li:hover
+{
+    cursor: pointer;
+
+    color: #7386d5;
+    background: #123;
+}
+
+#random-btn 
+{
+    background-color: #008CBA; 
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+	border-radius: 50px;
+	
+    cursor: pointer;
+    margin: 5px;
+}
+
+#random-btn:hover
+{
+	cursor: pointer;
+
+    color: white;
+    background: #f44336;
+}
+
+#toggle-btn
+{
+	position: fixed;
+	right: 0;
+    background-color: #008CBA; 
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+	border-radius: 50px;
+	
+    cursor: pointer;
+    margin: 5px;
+}
+
+#toggle-btn:hover
+{
+  cursor: pointer;
+
+    color: white;
+    background: #f44336;
+}
+
+.classSidebar
+{
+    width: 50%;
+}
+
+html,
+body
+{
+    position: relative;
+
+    height: 100%;
+    margin: 0;
+}
+
+#wrap
+{
+    position: relative;
+	left: 10%;
+}
+
+#wrap p
+{
+    font-size: 30px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+
+    color: rgba(255,255,255,.5);
+}
+
+@keyframes implode
+{
+    100%
+    {
+        transform: scale(0);
+    }
+}
+
+.ball
+{
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    animation: implode 1s ease-in-out;
+    pointer-events: none;
+
+    opacity: .5;
+    border-radius: 50%;
+    background: gray;
+
+    animation-fill-mode: both;
+}
+
+
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 57%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.9/angular-sanitize.min.js"></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Grade History</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- This will insert the grades into the api by a http request -->
+  <!-- <script src="grades.js"></script> -->
+
+  <!-- Our Custom CSS -->
+  <link rel="stylesheet" href="style5.css">
+  <link rel="stylesheet" href="mainSidebar.css">
+  <link rel="stylesheet" href="mainPage.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="grades.css" />
+</head>
+
+<body>
+  <div class="wrapper" ng-controller="sideCtrl" ng-cloak>
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+      <div>
+        <img src="https://www.cui.edu/Portals/0/Images/Icons/schedule-icon-2.png" alt="Profile Picture" id="profile" />
+      </div>
+
+      <ul>
+        <p id="student-info" ng-repeat="x in students">{{ x.fname + " " + x.lname }}</p>
+        <li class="active">
+          <a id='home-btn' href="MainPage.html">Home</a>
+        </li>
+        <li>
+          <a href="roadmap.html">Roadmap</a>
+        </li>
+        <li>
+          <a href="Grades.html">Setting/Grades</a>
+        </li>
+        <li>
+          <a href="javascript:logout()" id='logout'>Logout</a>
+        </li>
+      </ul>
+    </nav>
+    <script type="text/javascript">
+      function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+      }
+
+      function logout() {
+        setCookie("cin", 0, 30);
+        setCookie("password", 0, 30);
+        location.href = "../Registration/index.html";
+      }
+    </script>
+
+    <!-- Page Content Holder -->
+    <div>
+      <nav>
+        <div>
+          <div>
+            <button type="button" id="sidebarCollapse" class="navbar-btn">
+					<span></span>
+					<span></span>
+					<span></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <br><br>
+    <form id="gradesForm">
+      <div class="gradesform" ng-controller="inputCtrl">
+        <h2>Grade History</h2>
+        <fieldset>
+          <legend>Insert the grades you earned for the classes taken:</legend>
+			<label for='subject'>Subject: </label>
+			<select id='subject' class="form-inputs">
+				<option value='0' selected>Select Subject</option>
+				<option  ng-repeat = 'c in allClasses' value='{{c.classCode}}'>{{c.classCode}} {{c.className}}</option>
+			</select>
+           <br />
+          <label for="semester">Semester Taken: </label>
+          <select name="semester" id="semester" class="form-inputs">
+			<option value="Semester" selected>Select Semester</option>
+			<option value="Spring">Spring</option>
+			<option value="Summer">Summer</option>
+			<option value="Fall">Fall</option>
+			<option value="Winter">Winter</option>
+			<option value="Can't Remember">Don't Know</option>
+		</select>
+          <br />
+          <label for="year">Year Taken: </label>
+          <input type="text" name="Year" id="year" size="4" maxlength="4" class="form-inputs" onkeydown="upperCaseF(this)">
+          <br />
+          <!-- The grades drop down list for the form -->
+          <label for="grade">Grade: </label>
+          <select name="grades" id="grades" class="form-inputs">
+			<option value="Select" selected>Select Grade</option>
+			<option value="A">A</option>
+			<option value="A-">A-</option>
+			<option value="B+">B+</option>
+			<option value="B">B</option>
+			<option value="B-">B-</option>
+			<option value="C+">C+</option>
+			<option value="C">C</option>
+			<option value="C-">C-</option>
+			<option value="D">D</option>
+			<option value="F">F</option>
+			<option value="DNC">Did Not Complete</option>
+		</select>
+        </fieldset>
+        <br>
+        <!-- <input type="submit" value="Add Another Class"> -->
+        <button id='submit' type="button">Submit</button>
+        <button id='edit' type="button">Edit</button>
+      </div>
+    </form>
+    <!-- List of classes student has taken -->
+    <div ng-controller="getPaths" ng-cloak class='classContainer>
+      <div id="oneClass">
+        <div class="panel-heading" class="accordion">
+          <a data-toggle="collapse" id="collapseClass">
+            <h3 class="panel-title" id="classCode">
+              Taken Classes
+            </h3>
+          </a>
+        </div>
+        <div class=' courseInfo ' class="panel" ng-init="getPaths()">
+          <div class="panel-body" id="className"ng-repeat="class in classes"> <button class="btn" ng-click="deletePath(class.classCode, class.semester, class.year)"><i class="fa fa-close"></i></button> {{class.classCode}} ({{class.grade}}) in {{class.semester}} {{class.year}}</div>
+      </div>
+      </div>
+    </div>
+
+    <script src="cookies.js"></script>
+    <script src="toggle.js"></script>
+    <script src="gradeSubmit.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+
+</html>

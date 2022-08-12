@@ -1,0 +1,166 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+	<title>Registration</title>
+	<!-- custom-theme -->
+	<script type="application/x-javascript">
+		addEventListener("load", function() {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //custom-theme -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.9/angular-sanitize.min.js"></script>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+	<div class="bg">
+		<div class="center-container" ng-controller="regCtrl">
+			<img src="./images/logo.png"  class="center">
+			<div class="container">
+				<div class="form_w3layouts">
+					<div class="w3layouts-title">
+						<h2 class="w3ls-left">Registration</h2>
+						<a class="w3_play_icon1" href="#small-dialog1">sign in</a>
+						<div class="clear"></div>
+					</div>
+					<form action="#" method="post" class="w3_agile_login" id="reg-form">
+						<p>CIN</p>
+						<input type="text" name="username" required="required" id="cin" />
+						<p>Email</p>
+						<input type="email" name="email" required="required" id="email" />
+						<p>Password</p>
+						<input type="password" name="Password" id="password" required="required">
+						<p>Confirm Password</p>
+						<input type="password" name="Password" id="cpassword" required="required">
+						<div class="w3_agile_login">
+							<input type="submit" name="register" id="register" value="Register">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div id="small-dialog1" class="mfp-hide">
+				<div class="contact-form1">
+					<h3 class="w3ls-left">sign in </h3>
+					<form action="#" method="post" class="w3_agile_login">
+						<p>CIN</p>
+						<input type="text" name="name" id="cin1" placeholder="student id" required="">
+						<p>Password</p>
+						<input type="password" name="name" class="password" id="logPass" placeholder="your password" required="">
+						<div class="w3_agile_login">
+							<input type="submit" value="sign in" id="loginBtn">
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
+	<!-- pop-up-box -->
+	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+	<script src="cookies.js"></script>
+	<!--//pop-up-box -->
+	<script>
+		var app = angular.module('myApp', ['ngSanitize']);
+		app.controller('regCtrl', ['$scope', '$http', function($scope, $http) {
+			angular.element("#register").closest('form').on('submit', function(event) {
+				event.preventDefault();
+
+				var cin = angular.element("#cin").val();
+				var email = angular.element("#email").val();
+				var password = angular.element("#password").val();
+				var cpassword = angular.element("#cpassword").val();
+				var url = "http://138.197.211.227:8080/RESTfulProject/REST/WebService/Login/" + cin + "/" + email + "/" + password;
+
+
+				if ((password.length) < 0) {
+					alert("Password should atleast 8 character in length...!!!!!!");
+				} else if (!(password).match(cpassword)) {
+					alert("Your passwords don't match. Try again?");
+				} else {
+					$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+					$http({
+							url: url,
+							method: "POST",
+							data: {
+								'cin': "cin"
+							}
+						})
+						.then(function(response) {
+								alert("Successfully registered!");
+								angular.element("#reg-form")[0].reset();
+							},
+							function(response) {
+								alert("Successfully registered!");
+								angular.element("#reg-form")[0].reset();
+								this.submit();
+							});
+
+				}
+
+			});
+
+			angular.element("#loginBtn").on("click", function(e) {
+				e.preventDefault();
+
+				var password = angular.element("#logPass").val();
+				var cpass;
+				var url;
+				var cin = angular.element("#cin1").val();
+				var admin;
+				if (cin == '') {
+					alert("Please input your cin.");
+				} else {
+					console.log(cin);
+					console.log(password);
+					url = "http://138.197.211.227:8080/RESTfulProject/REST/WebService/Login/" + cin + "/" + password;
+					$http.get(url).then(function(response) {
+						$scope.login = angular.fromJson(response.data);
+						cpass = $scope.login[0].password;
+						admin = $scope.login[0].isAdmin;
+						if (cin == '' || password == '') {
+							alert("Please fill in all fields please.");
+						} else if (password == cpass && admin == false) {
+							setCookie("cin", cin, 30);
+							setCookie("password", password, 30);
+							location.href = "../MainPage/Home.html";
+						} else if (password == cpass && admin == true) {
+							setCookie("cin", cin, 30);
+							setCookie("password", password, 30);
+							console.log(admin);
+							location.href = "../MainPage/adminPage.html";
+						}
+					}).catch(function(data) {
+						alert("The username and password do not match.");
+					});
+				}
+			});
+		}]);
+		angular.element('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+			type: 'inline',
+			fixedContentPos: false,
+			fixedBgPos: true,
+			overflowY: 'auto',
+			closeBtnInside: true,
+			preloader: false,
+			midClick: true,
+			removalDelay: 300,
+			mainClass: 'my-mfp-zoom-in'
+		});
+	</script>
+	<script src="js/jquery.vide.min.js"></script>
+</body>
+
+</html>

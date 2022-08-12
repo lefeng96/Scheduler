@@ -1,0 +1,27 @@
+html{
+    background-color: rgb(55, 28, 80);
+}
+h1{
+    text-align: center;
+}
+h2{
+    color:red;
+}
+.endpoint{
+    color:#ffffff;
+}
+lable{
+    color:blue;
+}
+
+.info{
+    text-align: center;
+    margin:auto;
+    max-width: 50%;
+    border: 3px solid rgb(0, 0, 0);
+    background-color: lightgrey;
+    padding:20px;
+}
+.change{
+    color:rgb(30, 87, 37);
+}

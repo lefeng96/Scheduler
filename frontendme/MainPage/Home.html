@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.9/angular-sanitize.min.js"></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Our Custom CSS -->
+  <link rel="stylesheet" href="style5.css">
+  <link rel="stylesheet" href="mainSidebar.css">
+  <link rel="stylesheet" href="home.css">
+</head>
+
+<body onload="ifNotLogged()">
+  <div class="wrapper" ng-controller="sideCtrl" ng-cloak>
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+      <div>
+        <img src="https://www.cui.edu/Portals/0/Images/Icons/schedule-icon-2.png" alt="Profile Picture" id="profile" />
+      </div>
+
+      <ul>
+        <p id="student-info" ng-repeat="x in students">{{ x.fname + " " + x.lname }}</p>
+        <li class="active">
+          <a id='home-btn' href="MainPage.html">Home</a>
+        </li>
+        <li>
+          <a href="roadmap.html">Roadmap</a>
+        </li>
+        <li>
+          <a href="Grades.html">Setting/Grades</a>
+        </li>
+        <li>
+          <a href="javascript:logout()" id='logout'>Logout</a>
+        </li>
+      </ul>
+    </nav>
+    <script type="text/javascript">
+      function logout() {
+        setCookie("cin", 0, 30);
+        setCookie("password", 0, 30);
+        location.href = "../Registration/index.html";
+      }
+    </script>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+      <nav>
+        <div>
+          <div>
+            <button type="button" id="sidebarCollapse" class="navbar-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+  <div class='welcomeInfo'>
+  <h1>Welcome to CS²</h1>
+  <p>This website is designed to help you graduate at the pace you want, simply.</p>
+  <div>
+    <a href="roadmap.html"><button class='statusBtn'>Freshmen Student</button></a>
+    <a href="Grades.html"><button class='statusBtn'>Returning Student</button></a>
+  </div>
+  </div>
+  <script src="cookies.js"></script>
+  <script src="toggle.js"></script>
+  <script src="home.js"></script>
+  <script src="sidebar.js"></script>
+</body>
+
+</html>
